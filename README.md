@@ -6,6 +6,20 @@ It also gives better readability (just like how streams do).
 
 [![](https://img.shields.io/discord/872811194170347520?color=%237289da&logoColor=%23424549)](https://discord.gg/Ar6Zuj2m82)
 
+To add it to your project edit the gradle file as
+```
+repositories {
+    // other repositories
+    
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    // other dependencies
+    
+    implementation 'in.mcxiv:TryCatchSuite:0'
+```
+
 ---
 
 To run some task without caring if it was successful or not.
