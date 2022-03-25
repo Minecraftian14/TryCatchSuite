@@ -69,7 +69,18 @@ String message = Try
 
 ---
 
-Some other code examples which still need a better idea.
+There'a method to have an inline effect for throwing errors too!
+This is especially useful when creating lambda expressions inline.
+
+```
+Try.justThrow(RuntimeException::new)
+
+// example
+/*some stream code*/.filter(this::isNotAnAcceptedValue)
+    .forEach(value -> Try.justThrow(RuntimeException::new));
+```
+
+Some other code examples which are still in need of a better idea for an easier usage.
 
 ```
 // To use map in a stream 
