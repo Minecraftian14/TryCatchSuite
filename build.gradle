@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group 'in.mcxiv'
+version '0.1'
+
+
+java {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set("sources")
+    manifest.attributes.put('Implementation-Title', project.getName())
+    manifest.attributes.put('Implementation-Version', version)
+    setArchivesBaseName(project.getName())
+    with jar
+}
