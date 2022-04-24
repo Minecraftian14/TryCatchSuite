@@ -11,7 +11,7 @@ To add it to your project edit the gradle file as
 repositories {
     // other repositories
     
-    maven { url 'https://jitpack.io' }
+    maven { url 'https://jitpack.io/#in.mcxiv' }
 }
 
 dependencies {
