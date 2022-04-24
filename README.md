@@ -120,3 +120,7 @@ IntStream.range(-3, 4)
     .filter(Objects::nonNull)
     .count()
 ```
+
+# Check out a similar project 
+
+[![Try-Catchh-Wrapper](https://github-readme-stats.vercel.app/api/pin/?username=Jadefalke2&repo=Try-Catch-Wrapper&show_owner=true)](https://github.com/Jadefalke2/Try-Catch-Wrapper)
