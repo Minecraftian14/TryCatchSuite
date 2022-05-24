@@ -1,5 +1,10 @@
 package in.mcxiv.tryCatchSuite;
 
+import in.mcxiv.tryCatchSuite.interfaces.DangerousFunction;
+import in.mcxiv.tryCatchSuite.interfaces.DangerousRunnable;
+import in.mcxiv.tryCatchSuite.interfaces.DangerousSupplier;
+
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiConsumer;
@@ -99,8 +104,12 @@ public class Try {
     public static <T, R> Function<? super T, ? extends R> exceptTo(DangerousFunction<? super T, ? extends R> mapper, Supplier<? extends R> def) {
         return t -> {
             R r = getAnd(() -> mapper.apply(t)).elseNull();
-            if(Objects.isNull(r)) return def.get();
+            if (Objects.isNull(r)) return def.get();
             return r;
         };
+    }
+
+    public static <T> TryStream<T> streaming(Collection<T> collection) {
+        return TryStream.of(collection.stream());
     }
 }

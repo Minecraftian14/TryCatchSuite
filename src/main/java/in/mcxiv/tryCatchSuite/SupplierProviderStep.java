@@ -1,10 +1,11 @@
 package in.mcxiv.tryCatchSuite;
 
+import in.mcxiv.tryCatchSuite.interfaces.DangerousRunnable;
+import in.mcxiv.tryCatchSuite.interfaces.DangerousSupplier;
+
 @FunctionalInterface
 public interface SupplierProviderStep<ReturnType> {
     SupplierProvider<ReturnType> thenGet(DangerousSupplier<? extends ReturnType> supplier);
-
-//    <T> SupplierProvider<T> thenGet(DangerousSupplier<? extends T> supplier);
 
     default SupplierProvider<ReturnType> thenRun(DangerousRunnable runnable) {
         return returnTypeSupplier -> {

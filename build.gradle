@@ -1,3 +1,5 @@
+import java.nio.file.Files
+
 plugins {
     id 'java'
 }
@@ -5,10 +7,31 @@ plugins {
 group 'in.mcxiv'
 version '0.1'
 
-
 java {
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_16)) {
+        println("Setting up Java 16")
+        sourceCompatibility = 16
+        targetCompatibility = 16
+    } else {
+        println("Setting up Java 8")
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+}
+
+sourceSets {
+    experiments {
+        java {
+            srcDir('src/experiments/java')
+        }
+    }
+    preprocessed {
+        java {
+            srcDir('src/preprocessed/java')
+        }
+    }
+    test.compileClasspath += experiments.output
+    test.runtimeClasspath += experiments.output
 }
 
 repositories {
@@ -24,10 +47,33 @@ test {
     useJUnitPlatform()
 }
 
+task jgfsdgb {
+    println(sourceSets.getByName('main').getJava().collect { it.isDirectory() ? it : zipTree(it) })
+}
+
+task preprocessMain {
+    doLast {
+        File fp = sourceSets.main.java.srcDirs.toArray(File[]::new)[0];
+        try {
+            Files.walk(fp.toPath()).forEach(p -> {
+                if (p.toFile().isFile()) {
+                    String file_path = p.toString()
+                    String dir_path = file_path.substring(0, file_path.lastIndexOf(File.separator))
+                    File target_file = file(file_path.replace("main", "preprocessed"));
+                    target_file.createNewFile();
+                    Files.copy(p, new FileOutputStream(target_file))
+                }
+            })
+        } catch (Exception e) {
+            e.printStackTrace()
+        }
+    }
+}
+
 task sourcesJar(type: Jar, dependsOn: classes) {
     archiveClassifier.set("sources")
     manifest.attributes.put('Implementation-Title', project.getName())
     manifest.attributes.put('Implementation-Version', version)
     setArchivesBaseName(project.getName())
-    with jar
+    from sourceSets.getByName('main').allSource
 }

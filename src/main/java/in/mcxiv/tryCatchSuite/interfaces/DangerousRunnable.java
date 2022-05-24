@@ -1,4 +1,4 @@
-package in.mcxiv.tryCatchSuite;
+package in.mcxiv.tryCatchSuite.interfaces;
 
 @FunctionalInterface
 public interface DangerousRunnable {

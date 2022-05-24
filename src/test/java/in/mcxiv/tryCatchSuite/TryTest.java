@@ -3,6 +3,7 @@ package in.mcxiv.tryCatchSuite;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -11,7 +12,7 @@ import java.util.stream.IntStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SuppressWarnings({"NumericOverflow", "Convert2MethodRef", "divzero"})
-class TryTest {
+public class TryTest {
     @Test
     void simpleMethodTest() {
 
@@ -65,9 +66,24 @@ class TryTest {
         );
     }
 
-    private <T> T alsoPrtln(T t) {
+    public static  <T> T alsoPrtln(T t) {
         System.out.println(">>> " + t.toString());
         return t;
+    }
+
+    @Test
+    void testStreams() {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            StringBuilder b = new StringBuilder();
+            for (int j = 0; j < i; j++) b.append(" ");
+            list.add(b.toString());
+        }
+
+        Try.streaming(list)
+                .map2(a -> a.length() / (a.length() % 2), () -> -1)
+                .map(a -> a + 1)
+                .forEach(System.out::println);
     }
 
     @Test

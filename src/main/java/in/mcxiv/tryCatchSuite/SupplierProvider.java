@@ -1,10 +1,11 @@
 package in.mcxiv.tryCatchSuite;
 
+import in.mcxiv.tryCatchSuite.interfaces.DangerousRunnable;
+
 import java.util.function.Supplier;
 
 @FunctionalInterface
 public interface SupplierProvider<ReturnType> {
-    Supplier<?> NULL = () -> null;
 
     ReturnType elseGet(Supplier<? extends ReturnType> returnTypeSupplier);
 
